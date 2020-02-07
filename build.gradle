@@ -24,6 +24,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jacoco{
+        excludes = ['com/mercadolibre/MutantsApplication.java']
+    }
 }
 
 jacocoTestReport {
@@ -32,5 +35,6 @@ jacocoTestReport {
         html.enabled true
     }
 }
+
 
 check.dependsOn jacocoTestReport
