@@ -1,6 +1,7 @@
 # Compiled class file and directories
 *.class
 /build
+/.gradle
 
 # Log file
 *.log

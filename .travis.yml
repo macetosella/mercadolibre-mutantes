@@ -3,3 +3,7 @@ language: java
 cache:
   directories:
     - ~/.gradle
+
+after_success:
+  - export CODECOV_TOKEN="3f6c133e-e395-4942-bd3f-46dbf909bbe5"
+  - bash <(curl -s https://codecov.io/bash)
