@@ -30,15 +30,11 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             element = 'CLASS'
+            excludes = ['com.mercadolibre.mutants.MutantsApplication.class']
             limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-                minimum = 1.0
+                counter = 'BRANCH'
+                minimum = 0.8
             }
-            excludes = [
-                    'com.mercadolibre.mutants.MutantsApplication'
-
-            ]
         }
     }
 }
