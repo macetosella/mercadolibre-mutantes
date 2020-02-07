@@ -24,8 +24,22 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    jacoco{
-        excludes = ['com/mercadolibre/MutantsApplication.java']
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 1.0
+            }
+            excludes = [
+                    'com.mercadolibre.mutants.MutantsApplication'
+
+            ]
+        }
     }
 }
 
@@ -37,4 +51,4 @@ jacocoTestReport {
 }
 
 
-check.dependsOn jacocoTestReport
+check.dependsOn jacocoTestReport, jacocoTestCoverageVerification
