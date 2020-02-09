@@ -13,10 +13,8 @@ public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 	private static final String[] MUTANT_DNA_SEQUENCES = {"AAAA", "CCCC", "GGGG", "TTTT"};
 	private static final int[] X_AXIS_DIRECTIONS = {-1, -1, -1, 0, 0, 1, 1, 1};
 	private static final int[] Y_AXIS_DIRECTIONS = {-1, 0, 1, -1, 1, -1, 0, 1};
-	private int dnaLenght;
-	private int repeatedSequenceCounter = 0;
 
-	private boolean isWithinRangeDnaSequence(int rowDirection, int colDirection) {
+	private boolean isWithinRangeDnaSequence(int rowDirection, int colDirection, int dnaLenght) {
 		return rowDirection >= 0
 				&& rowDirection <= (dnaLenght - 1)
 				&& colDirection >= 0
@@ -24,12 +22,13 @@ public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 	}
 
 	public boolean dnaAnalyzer(String[] adn) {
-		dnaLenght = adn.length;
+		int dnaLenght = adn.length;
+		int repeatedSequenceCounter = 0;
 
-		for (String aPossibleMutantDnaSeq : MUTANT_DNA_SEQUENCES) {
+		for (String mutantDnaSequence : MUTANT_DNA_SEQUENCES) {
 			for (int x = 0; x < dnaLenght; x++) {
 				for (int y = 0; y < dnaLenght; y++) {
-					countDnaSequence(adn, x, y, aPossibleMutantDnaSeq);
+					repeatedSequenceCounter = countDnaSequence(adn, x, y, mutantDnaSequence, repeatedSequenceCounter);
 
 					if (repeatedSequenceCounter >= 4) {
 						LOGGER.info("The DNA sequence belongs to a mutant!");
@@ -42,10 +41,10 @@ public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 		return Boolean.FALSE;
 	}
 
-	private void countDnaSequence(String[] adn, int row, int column, String aPossibleMutantDnaSeq) {
-
+	private int countDnaSequence(String[] adn, int row, int column, String aPossibleMutantDnaSeq, int repeatedSequenceCounter) {
+		int dnaLenght = adn.length;
 		if (adn[row].charAt(column) != aPossibleMutantDnaSeq.charAt(0)) {
-			return;
+			return repeatedSequenceCounter;
 		}
 
 		int possibleMutantDnaSeqLength = aPossibleMutantDnaSeq.length();
@@ -57,7 +56,7 @@ public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 
 			for (possibleMutantDnaSeqCount = 1; possibleMutantDnaSeqCount <= possibleMutantDnaSeqLength - 1; possibleMutantDnaSeqCount++) {
 
-				if (!isWithinRangeDnaSequence(rowDirection, colDirection)) {
+				if (!isWithinRangeDnaSequence(rowDirection, colDirection, dnaLenght)) {
 					break;
 
 				}
@@ -74,9 +73,10 @@ public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 				repeatedSequenceCounter++;
 
 				if (repeatedSequenceCounter >= 4) {
-					return;
+					return repeatedSequenceCounter;
 				}
 			}
 		}
+		return repeatedSequenceCounter;
 	}
 }
