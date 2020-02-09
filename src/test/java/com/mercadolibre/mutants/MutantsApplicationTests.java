@@ -14,16 +14,23 @@ class MutantsApplicationTests {
 	@Autowired
 	MutantService mutantService;
 
-	static String[] dna = {"asdasd", "asdasd"};
+	private static String[] mutant_dna;
 
 	@BeforeAll
-	public static void init() {
-
+	static void init() {
+		mutant_dna = new String[]{
+				"RRRRRA",
+				"RRRRAR",
+				"RRRART",
+				"RRARRT",
+				"RTRRRT",
+				"RRRRRT"
+		};
 	}
 
 	@Test
 	void isMutantTest() {
-		assertEquals(mutantService.isMutant(dna), true);
+		assertTrue(mutantService.isMutant(mutant_dna));
 	}
 
 }
