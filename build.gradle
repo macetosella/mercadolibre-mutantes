@@ -24,9 +24,6 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    jacoco {
-        excludes = ['*MutantsApplication*']
-    }
 }
 
 jacocoTestReport {
@@ -36,5 +33,4 @@ jacocoTestReport {
     }
 }
 
-test.finalizedBy(project.tasks.jacocoTestReport)
 check.dependsOn jacocoTestReport
