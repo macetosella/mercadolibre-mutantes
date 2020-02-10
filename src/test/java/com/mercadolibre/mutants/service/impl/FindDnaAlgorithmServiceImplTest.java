@@ -4,7 +4,8 @@ import com.mercadolibre.mutants.exceptions.MutantException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FindDnaAlgorithmServiceImplTest extends FindDnaAlgorithmServiceImpl {
 
@@ -33,15 +34,8 @@ class FindDnaAlgorithmServiceImplTest extends FindDnaAlgorithmServiceImpl {
 
 	@Test
 	void testDnaAnalyzerWithError() {
-
-		MutantException exception = assertThrows(MutantException.class, () -> {
+		assertThrows(MutantException.class, () -> {
 			dnaAnalyzer(error_dna);
 		});
-
-		String expectedMessage = "The DNA chain is not NxN";
-		String actualMessage = exception.getMessage();
-
-		assertTrue(actualMessage.contains(expectedMessage));
-
 	}
 }
