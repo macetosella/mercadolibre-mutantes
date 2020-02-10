@@ -1,5 +1,6 @@
 package com.mercadolibre.mutants.service.impl;
 
+import com.mercadolibre.mutants.exceptions.MutantException;
 import com.mercadolibre.mutants.service.FindDnaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,12 @@ public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 				&& colDirection <= dnaLength - 1;
 	}
 
-	public Boolean dnaAnalyzer(String[] dna) throws Exception {
+	public Boolean dnaAnalyzer(String[] dna) throws MutantException {
 		int dnaLength = dna.length;
+		if(dnaLength != dna[0].length()){
+			LOGGER.error("The DNA chain is not NxN");
+			throw new MutantException();
+		}
 		int repeatedSequenceCounter = 0;
 
 		for (String mutantDnaSequence : MUTANT_DNA_SEQUENCES) {

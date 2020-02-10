@@ -1,5 +1,6 @@
 package com.mercadolibre.mutants.service.impl;
 
+import com.mercadolibre.mutants.exceptions.MutantException;
 import com.mercadolibre.mutants.service.FindDnaService;
 import com.mercadolibre.mutants.service.MutantService;
 import org.slf4j.Logger;
@@ -16,10 +17,16 @@ public class MutantServiceImpl implements MutantService {
 	FindDnaService findDnaAlgorithmServiceImpl;
 
 	@Override
-	public Boolean isMutant(String[] dna) {
+	public Boolean isMutant(String[] dna) throws MutantException {
 
+		Boolean isMutant = false;
 		LOGGER.info("Checking if the DNA is from a mutant...");
 
-		return findDnaAlgorithmServiceImpl.dnaAnalyzer(dna);
+		try {
+			isMutant = findDnaAlgorithmServiceImpl.dnaAnalyzer(dna);
+		} catch (MutantException e) {
+			LOGGER.error("Error analizing DNA:", e);
+		}
+			return isMutant;
 	}
 }
