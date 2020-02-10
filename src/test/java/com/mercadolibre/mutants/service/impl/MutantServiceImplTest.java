@@ -1,5 +1,6 @@
 package com.mercadolibre.mutants.service.impl;
 
+import com.mercadolibre.mutants.exceptions.MutantException;
 import com.mercadolibre.mutants.service.MutantService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 class MutantServiceImplTest extends MutantServiceImpl {
 
-	private static String[] mutant_dna_1, mutant_dna_2, is_not_mutant_dna_1, is_not_mutant_dna_2;
+	private static String[] mutant_dna_1, mutant_dna_2, is_not_mutant_dna_1, is_not_mutant_dna_2, error_dna;
 
 	@Autowired
 	MutantService mutantService;
@@ -50,25 +51,35 @@ class MutantServiceImplTest extends MutantServiceImpl {
 				"CGTC",
 				"ATAC"
 		};
+
+		error_dna = new String[]{
+				"AGACTA",
+				"AGGGTT"
+		};
 	}
 
 	@Test
-	void testIsMutant_1() {
+	void testIsMutant_1() throws MutantException {
 		assertTrue(mutantService.isMutant(mutant_dna_1));
 	}
 
 	@Test
-	void testIsMutant_2() {
+	void testIsMutant_2() throws MutantException {
 		assertTrue(mutantService.isMutant(mutant_dna_2));
 	}
 
 	@Test
-	void testIsNotMutant_1() {
+	void testIsNotMutant_1() throws MutantException {
 		assertFalse(mutantService.isMutant(is_not_mutant_dna_1));
 	}
 
 	@Test
-	void testIsNotMutant_2() {
+	void testIsNotMutant_2() throws MutantException {
 		assertFalse(mutantService.isMutant(is_not_mutant_dna_2));
+	}
+
+	@Test
+	void testIsMutantError() throws MutantException {
+		assertFalse(mutantService.isMutant(error_dna));
 	}
 }

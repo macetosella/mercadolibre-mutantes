@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @EnableAutoConfiguration
 class MutantsApplicationTests extends MutantsApplication {
 
-
 	@Test
 	void MutantsApplicationTest() {
 		MutantsApplication.main(new String[]{});

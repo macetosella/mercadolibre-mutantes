@@ -1,5 +1,6 @@
 package com.mercadolibre.mutants.service.impl;
 
+import com.mercadolibre.mutants.exceptions.MutantException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,15 +27,21 @@ class FindDnaAlgorithmServiceImplTest extends FindDnaAlgorithmServiceImpl {
 	}
 
 	@Test
-	void testDnaAnalyzerMutant() throws Exception {
+	void testDnaAnalyzerMutant() throws MutantException {
 		assertTrue(dnaAnalyzer(mutant_dna));
 	}
 
 	@Test
-	void testDnaAnalyzerWithError() throws Exception {
+	void testDnaAnalyzerWithError() {
 
-		Exception exception = assertThrows(Exception.class, () -> {
+		MutantException exception = assertThrows(MutantException.class, () -> {
 			dnaAnalyzer(error_dna);
 		});
+
+		String expectedMessage = "The DNA chain is not NxN";
+		String actualMessage = exception.getMessage();
+
+		assertTrue(actualMessage.contains(expectedMessage));
+
 	}
 }
