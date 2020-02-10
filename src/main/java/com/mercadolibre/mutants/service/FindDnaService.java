@@ -1,5 +1,5 @@
 package com.mercadolibre.mutants.service;
 
 public interface FindDnaService {
-	boolean dnaAnalyzer(String[] adn);
+	Boolean dnaAnalyzer(String[] dna) throws Exception;
 }

@@ -16,7 +16,7 @@ public class MutantServiceImpl implements MutantService {
 	FindDnaService findDnaAlgorithmServiceImpl;
 
 	@Override
-	public boolean isMutant(String[] dna) {
+	public Boolean isMutant(String[] dna) {
 
 		LOGGER.info("Checking if the DNA is from a mutant...");
 
