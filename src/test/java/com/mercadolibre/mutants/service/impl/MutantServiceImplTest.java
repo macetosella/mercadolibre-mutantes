@@ -1,6 +1,6 @@
 package com.mercadolibre.mutants.service.impl;
 
-import com.mercadolibre.mutants.exceptions.MutantException;
+import com.mercadolibre.mutants.exception.MutantException;
 import com.mercadolibre.mutants.service.MutantService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
