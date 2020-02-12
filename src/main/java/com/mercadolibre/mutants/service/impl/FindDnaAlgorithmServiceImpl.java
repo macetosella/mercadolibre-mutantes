@@ -1,6 +1,6 @@
 package com.mercadolibre.mutants.service.impl;
 
-import com.mercadolibre.mutants.exceptions.MutantException;
+import com.mercadolibre.mutants.exception.MutantException;
 import com.mercadolibre.mutants.service.FindDnaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package com.mercadolibre.mutants.service;
 
-import com.mercadolibre.mutants.exceptions.MutantException;
+import com.mercadolibre.mutants.exception.MutantException;
 
 public interface MutantService {
 

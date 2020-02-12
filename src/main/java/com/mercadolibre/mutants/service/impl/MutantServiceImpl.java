@@ -1,6 +1,6 @@
 package com.mercadolibre.mutants.service.impl;
 
-import com.mercadolibre.mutants.exceptions.MutantException;
+import com.mercadolibre.mutants.exception.MutantException;
 import com.mercadolibre.mutants.service.FindDnaService;
 import com.mercadolibre.mutants.service.MutantService;
 import org.slf4j.Logger;
@@ -27,6 +27,6 @@ public class MutantServiceImpl implements MutantService {
 		} catch (MutantException e) {
 			LOGGER.error("Error analizing DNA:", e);
 		}
-			return isMutant;
+		return isMutant;
 	}
 }
