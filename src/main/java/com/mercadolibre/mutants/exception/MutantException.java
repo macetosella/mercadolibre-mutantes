@@ -1,4 +1,4 @@
-package com.mercadolibre.mutants.exceptions;
+package com.mercadolibre.mutants.exception;
 
 public class MutantException extends Exception {
 
