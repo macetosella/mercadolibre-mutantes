@@ -24,7 +24,6 @@ public class MutantResource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MutantResource.class);
 
-
 	MutantService mutantService;
 
 	@Autowired

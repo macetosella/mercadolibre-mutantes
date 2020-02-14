@@ -6,11 +6,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.regex.Pattern;
+
 @Service
 public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FindDnaAlgorithmServiceImpl.class);
 
+	private static String ACCEPT_PATTERN = "[ATCG]+";
 	private static final String[] MUTANT_DNA_SEQUENCES = {"AAAA", "CCCC", "GGGG", "TTTT"};
 	private static final int[] X_AXIS_DIRECTIONS = {-1, -1, -1, 0, 0, 1, 1, 1};
 	private static final int[] Y_AXIS_DIRECTIONS = {-1, 0, 1, -1, 1, -1, 0, 1};
@@ -23,11 +28,8 @@ public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 	}
 
 	public Boolean dnaAnalyzer(String[] dna) throws MutantException {
+		DnaValidation(dna);
 		int dnaLength = dna.length;
-		if(dnaLength != dna[0].length()){
-			LOGGER.error("The DNA chain is not NxN");
-			throw new MutantException();
-		}
 		int repeatedSequenceCounter = 0;
 
 		for (String mutantDnaSequence : MUTANT_DNA_SEQUENCES) {
@@ -44,6 +46,23 @@ public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 		}
 		LOGGER.info("The DNA sequence does not belong to a mutant!");
 		return Boolean.FALSE;
+	}
+
+	private void DnaValidation(String[] dna) throws MutantException {
+		if (dna.length == 0) {
+			LOGGER.error("The DNA can not be empty");
+			throw new MutantException();
+		}
+		if (dna.length != dna[0].length()) {
+			LOGGER.error("The DNA chain is not NxN");
+			throw new MutantException(Arrays.toString(dna));
+		}
+		Pattern patternDna = Pattern.compile(ACCEPT_PATTERN, Pattern.CASE_INSENSITIVE);
+		if (!patternDna.matcher(Arrays.toString(dna).replaceAll("[\\[\\], ]", "")).matches()) {
+			LOGGER.error("The sequence is not an DNA valid");
+			throw new MutantException("The sequence is not an DNA valid", new Throwable(Arrays.toString(dna)));
+		}
+
 	}
 
 	private int countDnaSequence(String[] dna, int row, int column, String mutantDnaSequence, int repeatedSequenceCounter) {
