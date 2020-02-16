@@ -23,8 +23,8 @@ class MutantResourceTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-	private DnaSequenceDTO dnaSequenceDTO;
 	private String[] mutantDna;
+	private String[] humanDna;
 
 	@MockBean
 	MutantService mutantService;
@@ -32,15 +32,20 @@ class MutantResourceTest {
 
 	@BeforeEach
 	void setUp() {
-		mutantDna = new String[]{"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTT"};
-		dnaSequenceDTO = new DnaSequenceDTO(mutantDna);
+		mutantDna = new String[]{"AAAAAA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTT"};
+		humanDna = new String[]{
+				"CGAC",
+				"ATGT",
+				"CGTC",
+				"ATAC"
+		};
 	}
 
 	@Test
-	void testIsMutantResource() throws Exception {
+	void testIsMutantResource_200() throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-		String dna = mapper.writeValueAsString(dnaSequenceDTO);
+		String dna = mapper.writeValueAsString(new DnaSequenceDTO(mutantDna));
 
 		when(mutantService.isMutant(mutantDna)).thenReturn(Boolean.TRUE);
 
@@ -48,7 +53,19 @@ class MutantResourceTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(dna))
 				.andExpect(status().isOk());
+	}
 
+	@Test
+	void testIsMutantResource_403() throws Exception {
 
+		ObjectMapper mapper = new ObjectMapper();
+		String dna = mapper.writeValueAsString(new DnaSequenceDTO(humanDna));
+
+		when(mutantService.isMutant(humanDna)).thenReturn(Boolean.FALSE);
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/V1/mutant")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(dna))
+				.andExpect(status().is4xxClientError());
 	}
 }

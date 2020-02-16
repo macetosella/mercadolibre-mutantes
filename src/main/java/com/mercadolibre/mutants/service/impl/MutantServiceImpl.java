@@ -53,7 +53,7 @@ public class MutantServiceImpl implements MutantService {
 			}
 		} else {
 			Human human = new Human(dna);
-			if (humanRepository.existsById(human.getDna())) {
+			if (!humanRepository.existsById(human.getDna())) {
 				humanRepository.insert(human);
 				LOGGER.info("New human dna was added to statistic: {}", human.getDna());
 			}
