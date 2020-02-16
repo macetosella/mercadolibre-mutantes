@@ -17,8 +17,12 @@ public class StatResource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MutantResource.class);
 
+	private final StatService statService;
+
 	@Autowired
-	private StatService statService;
+	public StatResource(StatService statService) {
+		this.statService = statService;
+	}
 
 	@GetMapping(value = "/stats", produces = MediaType.APPLICATION_JSON_VALUE)
 	public StatDTO stats() throws MutantException {
