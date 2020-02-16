@@ -1,15 +1,14 @@
 package com.mercadolibre.mutants;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
-@SpringBootTest
-@EnableAutoConfiguration
-class MutantsApplicationTests extends MutantsApplication {
+
+@DataMongoTest(excludeAutoConfiguration = {EmbeddedMongoAutoConfiguration.class})
+class MutantsApplicationTests extends MutantsApplication{
 
 	@Test
-	void MutantsApplicationTest() {
-		MutantsApplication.main(new String[]{});
+	public void contextLoads() {
 	}
 }

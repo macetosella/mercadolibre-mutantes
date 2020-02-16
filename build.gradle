@@ -20,8 +20,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'junit:junit:4.12'
 }
 
 test {

@@ -8,8 +8,11 @@ public abstract class Person {
 		this.setDna(String.join(",", dna));
 	}
 
+	public Person() {
+	}
+
 	@Id
-	private String dna;
+	protected String dna;
 
 	public String getDna() {
 		return dna;

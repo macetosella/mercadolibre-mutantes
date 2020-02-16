@@ -1,32 +1,37 @@
 package com.mercadolibre.mutants.service.impl;
 
-import com.mercadolibre.mutants.exception.MutantException;
-import com.mercadolibre.mutants.service.MutantService;
+import com.mercadolibre.mutants.repository.HumanRepository;
+import com.mercadolibre.mutants.repository.MutantRepository;
+import com.mercadolibre.mutants.service.FindDnaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
-class MutantServiceImplTest extends MutantServiceImpl {
+@ActiveProfiles("test")
+@DataMongoTest
+class MutantServiceImplTest {
 
 	private static String[] mutant_dna_1, mutant_dna_2, is_not_mutant_dna_1, is_not_mutant_dna_2, error_dna;
 
-	@Autowired
-	MutantService mutantService;
+	@MockBean
+	private MutantRepository mutantRepository;
+
+	@MockBean
+	private HumanRepository humanRepository;
 
 	@BeforeEach
 	void setUp() {
 		mutant_dna_1 = new String[]{
-				"AGACTA",
-				"ATGTTA",
-				"CGAGAA",
-				"AGACTA",
-				"CGACTT",
-				"AGGGTT"
+				"AAAA",
+				"GGGG",
+				"AAAA",
+				"AAAA",
+
 		};
 
 		mutant_dna_2 = new String[]{
@@ -59,27 +64,39 @@ class MutantServiceImplTest extends MutantServiceImpl {
 	}
 
 	@Test
-	void testIsMutant_1() throws MutantException {
-		assertTrue(mutantService.isMutant(mutant_dna_1));
+	void testIsMutant_1() {
+		FindDnaService findDnaService = new FindDnaAlgorithmServiceImpl();
+		MutantServiceImpl mutantServiceImpl = new MutantServiceImpl(findDnaService, mutantRepository, humanRepository);
+		assertTrue(mutantServiceImpl.isMutant(mutant_dna_1));
 	}
 
 	@Test
-	void testIsMutant_2() throws MutantException {
-		assertTrue(mutantService.isMutant(mutant_dna_2));
+	void testIsMutant_2() {
+		FindDnaService findDnaService = new FindDnaAlgorithmServiceImpl();
+		MutantServiceImpl mutantServiceImpl = new MutantServiceImpl(findDnaService, mutantRepository, humanRepository);
+		assertTrue(mutantServiceImpl.isMutant(mutant_dna_2));
 	}
 
 	@Test
-	void testIsNotMutant_1() throws MutantException {
-		assertFalse(mutantService.isMutant(is_not_mutant_dna_1));
+	void testIsNotMutant_1() {
+		FindDnaService findDnaService = new FindDnaAlgorithmServiceImpl();
+		MutantServiceImpl mutantServiceImpl = new MutantServiceImpl(findDnaService, mutantRepository, humanRepository);
+		assertFalse(mutantServiceImpl.isMutant(is_not_mutant_dna_1));
 	}
 
 	@Test
-	void testIsNotMutant_2() throws MutantException {
-		assertFalse(mutantService.isMutant(is_not_mutant_dna_2));
+	void testIsNotMutant_2() {
+		FindDnaService findDnaService = new FindDnaAlgorithmServiceImpl();
+		MutantServiceImpl mutantServiceImpl = new MutantServiceImpl(findDnaService, mutantRepository, humanRepository);
+		assertFalse(mutantServiceImpl.isMutant(is_not_mutant_dna_2));
 	}
 
 	@Test
-	void testIsMutantError() throws MutantException {
-		assertFalse(mutantService.isMutant(error_dna));
+	void testIsMutantError() {
+		FindDnaService findDnaService = new FindDnaAlgorithmServiceImpl();
+		MutantServiceImpl mutantServiceImpl = new MutantServiceImpl(findDnaService, mutantRepository, humanRepository);
+		assertFalse(mutantServiceImpl.isMutant(error_dna));
 	}
+
+
 }

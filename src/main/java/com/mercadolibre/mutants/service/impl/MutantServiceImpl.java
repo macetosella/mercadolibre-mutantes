@@ -17,14 +17,17 @@ public class MutantServiceImpl implements MutantService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MutantServiceImpl.class);
 
-	@Autowired
-	FindDnaService findDnaAlgorithmServiceImpl;
+
+	private FindDnaService findDnaAlgorithmServiceImpl;
+	private MutantRepository mutantRepository;
+	private HumanRepository humanRepository;
 
 	@Autowired
-	MutantRepository mutantRepository;
-
-	@Autowired
-	HumanRepository humanRepository;
+	public MutantServiceImpl(FindDnaService findDnaAlgorithmServiceImpl, MutantRepository mutantRepository, HumanRepository humanRepository) {
+		this.findDnaAlgorithmServiceImpl = findDnaAlgorithmServiceImpl;
+		this.mutantRepository = mutantRepository;
+		this.humanRepository = humanRepository;
+	}
 
 	@Override
 	public Boolean isMutant(String[] dna) {
