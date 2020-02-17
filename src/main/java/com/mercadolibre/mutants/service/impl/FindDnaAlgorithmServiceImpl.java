@@ -2,18 +2,17 @@ package com.mercadolibre.mutants.service.impl;
 
 import com.mercadolibre.mutants.exception.MutantException;
 import com.mercadolibre.mutants.service.FindDnaService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 @Service
 public class FindDnaAlgorithmServiceImpl implements FindDnaService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(FindDnaAlgorithmServiceImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(MutantServiceImpl.class);
 
 	private static String ACCEPT_PATTERN = "[ATCG]+";
 	private static final String[] MUTANT_DNA_SEQUENCES = {"AAAA", "CCCC", "GGGG", "TTTT"};

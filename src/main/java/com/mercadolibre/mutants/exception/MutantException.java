@@ -2,6 +2,8 @@ package com.mercadolibre.mutants.exception;
 
 public class MutantException extends Exception {
 
+	private static final long serialVersionUID = 7000181794403478325L;
+
 	public MutantException() {
 	}
 
@@ -11,13 +13,5 @@ public class MutantException extends Exception {
 
 	public MutantException(String message, Throwable cause) {
 		super(message, cause);
-	}
-
-	public MutantException(Throwable cause) {
-		super(cause);
-	}
-
-	public MutantException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
 	}
 }

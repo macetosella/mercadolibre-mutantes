@@ -3,8 +3,9 @@ package com.mercadolibre.mutants.resource;
 import com.mercadolibre.mutants.dto.DnaSequenceDTO;
 import com.mercadolibre.mutants.exception.MutantException;
 import com.mercadolibre.mutants.service.MutantService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.mercadolibre.mutants.service.impl.MutantServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +23,7 @@ import javax.validation.Valid;
 @RequestMapping("/V1")
 public class MutantResource {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(MutantResource.class);
+	private static final Logger LOGGER = LogManager.getLogger(MutantServiceImpl.class);
 
 	MutantService mutantService;
 
