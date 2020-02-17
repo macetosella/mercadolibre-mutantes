@@ -90,7 +90,7 @@ URL hosteada en Amazon: http://mutants.us-east-1.elasticbeanstalk.com/
 #### Es mutante
 
 Request: 
-- POST http://mutants.us-east-1.elasticbeanstalk.com/V1/mutants/
+- POST http://mutants.us-east-1.elasticbeanstalk.com/V1/mutant
 
 Request body (caso ADN mutante):
 
